@@ -28,25 +28,27 @@ contract KaseiCoinCrowdsaleDeployer {
 
     // Add the constructor.
     constructor(
-       address payable wallet, string memory symbol, string memory name)
-    public {
+       address payable wallet,
+       string memory symbol, 
+       string memory name
+    )public {
         // Create a new instance of the KaseiCoin contract.
         KaseiCoin token = new KaseiCoin (name, symbol, 0);
         
         // Assign the token contract’s address to the `kasei_token_address` variable.
-        kasei_token_address - address(token);
+        kasei_token_address = address(token);
 
         // Create a new instance of the `KaseiCoinCrowdsale` contract
-        KaseiCoinCrowdsale = new KaseiCoinCrowdsale (1,wallet,token);
+        KaseiCoinCrowdsale kasei_crowdsale = new KaseiCoinCrowdsale (1,wallet,token);
             
         // Aassign the `KaseiCoinCrowdsale` contract’s address to the `kasei_crowdsale_address` variable.
-        KaseiCoinCrowdsale = address(KaseiCoinCrowdsale);
+        kasei_crowdsale_address = address(kasei_crowdsale);
 
         // Set the `KaseiCoinCrowdsale` contract as a minter
-        token.addMinter(KaseiCoinCrowdsale);
+        token.addMinter(kasei_token_address);
         
         // Have the `KaseiCoinCrowdsaleDeployer` renounce its minter role.
-        token.renounceMinter(KaseiCoinCrowdsaleDeployer);
+        token.renounceMinter();
 
     }
 }
